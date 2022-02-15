@@ -1,0 +1,15 @@
+<mat-form-field class="example-form-field" appearance="fill">
+  <mat-label>{{title}}</mat-label>
+  <input *ngIf="type != 'email'" matInput type="{{type}}" formControlName="{{formControlName}}" [errorStateMatcher]="matcher">
+  <input *ngIf="type == 'email'" matInput type="{{type}}" formControlName="{{formControlName}}" [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+    [(ngModel)]="value">
+  <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+    Ingresa un correo electrónico válido
+  </mat-error>
+  <mat-error *ngIf="emailFormControl.hasError('required')">
+    {{title}} es <strong>requerido</strong>
+  </mat-error>
+  <button *ngIf="value" matSuffix mat-icon-button aria-label="Borrar" (click)="value=''">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>
