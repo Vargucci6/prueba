@@ -49,11 +49,17 @@ export class LoginComponent {
 
 
   loginIn() {
-    console.log("entra");
-    this.httpClient.get(`${this.backendHost}login`, this.signInForm.value)
+    this.httpClient.post(`${this.backendHost}login`, this.signInForm.value)
       .subscribe(res => {
-
-        console.log("pero si");
+        if (res) {
+          this.toastSvc.success(`Iniciando sesión de manera correcta`, 'New Inntech');
+          console.log('token: ', res)
+          const token = res as string;
+          sessionStorage.setItem('token', token);
+          this.router.navigate(['/home']);
+        } else {
+          this.toastSvc.error(`Correo y/o contraseña incorrecta`, 'New Inntech');
+        }
       })
 
   }

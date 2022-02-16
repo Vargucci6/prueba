@@ -33,14 +33,13 @@ export class InicioComponent {
   };
 
   backendHost = "http://localhost:3050/";
-  statusRegster = false;
 
   signUpForm: FormGroup;
 
   constructor(public fb: FormBuilder, private httpClient: HttpClient, private toastSvc: ToastrService, private router: Router) {
     this.signUpForm = this.fb.group({
       name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email], /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i],
       password: ['', [Validators.required, Validators.minLength(8)]]
     });
   }
@@ -65,15 +64,12 @@ export class InicioComponent {
       .subscribe(res => {
         if (res == true) {
           this.toastSvc.success(`Usuario guardado corractamente, puedes iniciar sesión`, 'New Inntech');
-          this.statusRegster = true;
-          console.log(this.fb)
+          console.log(this.signUpForm.value)
           this.router.navigate(['/login']);
         } else if (res == false) {
           this.toastSvc.error(`Correo electrónico ya usado, intenta con otro`, 'New Inntech');
-          this.statusRegster = false;
         } else {
           this.toastSvc.warning(`Usuario no guardado, revisa los campos subyados.`, 'New Inntech');
-          this.statusRegster = false;
         }
       });
 

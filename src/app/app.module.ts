@@ -17,6 +17,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from "@angular/common/http";
 import { InputComponent } from './components/input/input.component';
 import { LoginComponent } from './pages/login/login.component';
+import { CookieService } from 'ngx-cookie-service';
+import { HomeComponent } from './pages/home/home.component';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,8 @@ import { LoginComponent } from './pages/login/login.component';
     InputPassComponent,
     ButtonComponent,
     InputComponent,
-    LoginComponent
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -39,9 +43,10 @@ import { LoginComponent } from './pages/login/login.component';
     ReactiveFormsModule,
     ToastrModule.forRoot(),
     MatButtonModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
