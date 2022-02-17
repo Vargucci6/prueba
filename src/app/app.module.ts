@@ -19,7 +19,9 @@ import { InputComponent } from './components/input/input.component';
 import { LoginComponent } from './pages/login/login.component';
 import { CookieService } from 'ngx-cookie-service';
 import { HomeComponent } from './pages/home/home.component';
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import {MatTableModule} from '@angular/material/table';
     ButtonComponent,
     InputComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,8 @@ import {MatTableModule} from '@angular/material/table';
     ToastrModule.forRoot(),
     MatButtonModule,
     HttpClientModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

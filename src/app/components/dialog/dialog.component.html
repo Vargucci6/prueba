@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>Editar usuario</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="container">
+    <form [formGroup]="editForm" (ngSubmit)="functioncall()">
+      <app-input name="name" title="Nombre" [control]="nameField"></app-input>
+      <app-input name="email" title="Email" [control]="emailField"></app-input>
+      <app-input-pass name="password" title="Contraseña" [control]="passwordField"></app-input-pass>
+    </form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <app-button [class]="'basic'" mat-dialog-close [label]="'Cancelar'"></app-button>
+  <app-button [type]="'submit'" type="submit" [type]="'submit'" [class]="'primary'" [mat-dialog-close]="true" cdkFocusInitial [label]="'Editar'"> </app-button>
+</mat-dialog-actions>

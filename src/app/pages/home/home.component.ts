@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -26,8 +28,11 @@ export class HomeComponent implements OnInit {
   dataSource: Usuarios[];
   columnsToDisplay = ['email'];
   expandedElement: Usuarios | null;
+  @Input() name: string;
+  @Input() email: string;
+  @Input() password: string;
 
-  constructor(private httpClient: HttpClient, private toastSvc: ToastrService, private router: Router) { }
+  constructor(private httpClient: HttpClient, private toastSvc: ToastrService, private router: Router,public dialog: MatDialog) { }
 
   ngOnInit(): void {
 
@@ -64,6 +69,28 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/login']);
     sessionStorage.setItem('token', "");
     this.toastSvc.success(`Sesió cerrada correctamente`, 'New Inntech');
+  }
+  openDialog(id: number) {
+    const dialogRef = this.dialog.open(DialogComponent);
+    this.httpClient.get<Usuarios[]>(`${this.backendHost}customers/${id}`)
+      .subscribe(res => {
+        if (res) {
+          this.data_user = res
+          this.data_user.forEach(element => {
+            this.name = element.name;
+            this.email = element.email;
+            this.password = element.password;
+          });
+        } else {
+          this.toastSvc.error(`Error`, 'New Inntech');
+        }
+      })
+
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
+
+    return id;
   }
 
 }

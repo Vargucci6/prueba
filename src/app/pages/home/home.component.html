@@ -1,6 +1,6 @@
 <div class="container">
   <div class="signOut">
-    <app-button  [class]="'basic'" (onClick)="signOut()" [label]="'Cerrar sesión'"> </app-button>
+    <app-button [class]="'basic'" (onClick)="signOut()" [label]="'Cerrar sesión'"> </app-button>
   </div>
   <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
     <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
@@ -15,6 +15,9 @@
           <div class="example-element-diagram">
             <div class="example-element">Nombre: {{element.name}} </div>
             <div class="example-element">Contraseña: {{element.password}} </div>
+            <div class="buttons">
+              <app-button [class]="'basic'" (onClick)="openDialog(element.id_user)" [label]="'Editar'"> </app-button>
+            </div>
           </div>
         </div>
       </td>
@@ -27,5 +30,4 @@
     </tr>
     <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
   </table>
-
 </div>
